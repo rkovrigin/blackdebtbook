@@ -7,8 +7,8 @@
 //
 
 #import "MasterViewController.h"
-
 #import "DetailViewController.h"
+#import "AppDelegate.h"
 
 @interface MasterViewController () {
     NSMutableArray *_objects;
@@ -31,6 +31,7 @@
     [super viewDidLoad];
 	// Do any additional setup after loading the view, typically from a nib.
     self.navigationItem.leftBarButtonItem = self.editButtonItem;
+    self.navigationItem.rightBarButtonItem = self.editButtonItem;
 
     UIBarButtonItem *addButton = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemAdd target:self action:@selector(insertNewObject:)];
     self.navigationItem.rightBarButtonItem = addButton;
@@ -118,9 +119,14 @@
     if (!self.detailViewController) {
         self.detailViewController = [[DetailViewController alloc] initWithNibName:@"DetailViewController" bundle:nil];
     }
-    NSDate *object = _objects[indexPath.row];
-    self.detailViewController.detailItem = object;
-    [self.navigationController pushViewController:self.detailViewController animated:YES];
+    AppDelegate *delegate = (AppDelegate*) [[UIApplication sharedApplication] delegate];
+    DetailViewController *detail = [[DetailViewController alloc] init];
+    
+    [delegate.navigationController pushViewController:detail animated:YES];
+    
+//    NSDate *object = _objects[indexPath.row];
+//    self.detailViewController.debtsTable = object;
+//    [self.navigationController pushViewController:self.detailViewController animated:YES];
 }
 
 @end
