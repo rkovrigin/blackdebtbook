@@ -9,6 +9,7 @@
 #import "MasterViewController.h"
 #import "DetailViewController.h"
 #import "AppDelegate.h"
+#import "DBmanager.h"
 
 @interface MasterViewController () {
     NSMutableArray *_objects;
@@ -16,6 +17,7 @@
 @end
 
 @implementation MasterViewController
+@synthesize detailViewController;
 
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
 {
@@ -45,12 +47,12 @@
 
 - (void)insertNewObject:(id)sender
 {
-    if (!_objects) {
-        _objects = [[NSMutableArray alloc] init];
-    }
-    [_objects insertObject:[NSDate date] atIndex:0];
-    NSIndexPath *indexPath = [NSIndexPath indexPathForRow:0 inSection:0];
-    [self.tableView insertRowsAtIndexPaths:@[indexPath] withRowAnimation:UITableViewRowAnimationAutomatic];
+    NSDateFormatter *df = [[NSDateFormatter alloc] init];
+    [df setDateFormat:@"yyyy-MM-dd-hh:mm"];
+    DBmanager *db = [DBmanager getSharedInstance];
+    [db saveData:[df stringFromDate:[NSDate date]]];
+
+    [self.tableView reloadData];
 }
 
 #pragma mark - Table View
@@ -62,7 +64,10 @@
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
 {
-    return _objects.count;
+    DBmanager *_db = [DBmanager getSharedInstance];
+    NSMutableArray *_debtors = [_db loadDebtors];
+    
+    return [_debtors count];
 }
 
 // Customize the appearance of table view cells.
@@ -75,10 +80,22 @@
         cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:CellIdentifier];
         cell.accessoryType = UITableViewCellAccessoryDisclosureIndicator;
     }
+    
+    NSMutableArray *_debtors;
+    DBmanager *_db = [DBmanager getSharedInstance];
+    _debtors = [_db loadDebtors];
+    Debtor *debtor = [Debtor alloc];
+    
+    if(indexPath.row < [_debtors count]){
+        cell.textLabel.textColor = [UIColor blackColor];
+        cell.editingAccessoryType = UITableViewCellAccessoryNone;
+        debtor = [_debtors objectAtIndex:indexPath.row];
+        cell.textLabel.text = debtor.name;
+        [cell setSelectionStyle:UITableViewCellSelectionStyleNone];
+    }
 
-
-    NSDate *object = _objects[indexPath.row];
-    cell.textLabel.text = [object description];
+//    NSDate *object = _objects[indexPath.row];
+//    cell.textLabel.text = [object description];
     return cell;
 }
 
