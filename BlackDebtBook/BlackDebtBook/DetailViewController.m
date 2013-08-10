@@ -112,6 +112,7 @@
     NSLog(@"debtorID= %@", self.debtorID);
     NSString *debtorName = [db getStr: [NSString stringWithFormat:@"select name from debtor where regno = %@", self.debtorID]];
     self.title = debtorName;
+ 
     return self;
 }
 
