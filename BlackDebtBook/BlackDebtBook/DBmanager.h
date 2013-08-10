@@ -22,5 +22,6 @@
 -(NSMutableArray*) loadDebts:(NSString*)debtorID;
 -(int)getTableSize:(NSString*)tableName;
 -(NSString*)getStr:(NSString*)query;
+-(void)Exec:(NSString*)query;
 
 @end

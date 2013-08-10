@@ -108,9 +108,16 @@
 
 - (void)tableView:(UITableView *)tableView commitEditingStyle:(UITableViewCellEditingStyle)editingStyle forRowAtIndexPath:(NSIndexPath *)indexPath
 {
+    DBmanager *db = [DBmanager getSharedInstance];
+    NSMutableArray *_debtors;
+    Debtor *debtor = [Debtor alloc];
+    _debtors = [db loadDebtors];
     if (editingStyle == UITableViewCellEditingStyleDelete) {
-        [_objects removeObjectAtIndex:indexPath.row];
-        [tableView deleteRowsAtIndexPaths:@[indexPath] withRowAnimation:UITableViewRowAnimationFade];
+//        [_objects removeObjectAtIndex:indexPath.row];
+//        [tableView deleteRowsAtIndexPaths:@[indexPath] withRowAnimation:UITableViewRowAnimationFade];
+        debtor = [_debtors objectAtIndex:indexPath.row];
+        [db Exec:[NSString stringWithFormat:@"delete from debtor where regno = %@", debtor.id]];
+        [self.tableView reloadData];
     } else if (editingStyle == UITableViewCellEditingStyleInsert) {
         // Create a new instance of the appropriate class, insert it into the array, and add a new row to the table view.
     }

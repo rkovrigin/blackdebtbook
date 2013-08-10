@@ -198,4 +198,18 @@ static sqlite3_stmt *statement = nil;
     return result;
 }
 
+-(void) Exec:(NSString*)query{
+    const char *dbpath = [databasePath UTF8String];
+    
+    if(sqlite3_open(dbpath, &database) == SQLITE_OK){
+        const char *query_stmt = [query UTF8String];
+        if (sqlite3_exec(database, query_stmt, NULL, NULL, NULL) != SQLITE_OK){
+            NSLog(@"DELETE DON'T");
+        }else{
+            NSLog(@"DELETE OK");
+        }
+        sqlite3_close(database);
+    }
+}
+
 @end
