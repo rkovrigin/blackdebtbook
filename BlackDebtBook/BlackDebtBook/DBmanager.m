@@ -181,4 +181,21 @@ static sqlite3_stmt *statement = nil;
     return resultArray;
 }
 
+-(NSString*) getStr:(NSString*)query{
+    const char *dbpath = [databasePath UTF8String];
+    NSString *result = [NSString alloc];
+    
+    if(sqlite3_open(dbpath, &database) == SQLITE_OK){
+        const char *query_stmt = [query UTF8String];
+        
+        if(sqlite3_prepare_v2(database, query_stmt, -1, &statement, NULL) == SQLITE_OK){
+            while(sqlite3_step(statement) == SQLITE_ROW){
+                result = [[NSString alloc] initWithUTF8String: (const char *) sqlite3_column_text(statement, 0)];
+            }
+            sqlite3_reset(statement);
+        }
+    }
+    return result;
+}
+
 @end

@@ -7,6 +7,7 @@
 //
 
 #import "DetailViewController.h"
+#import "DBmanager.h"
 
 @interface DetailViewController ()
 - (void)configureView;
@@ -28,7 +29,10 @@
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
 {
-    return 3;
+    DBmanager *db = [DBmanager getSharedInstance];
+    NSString *query = [NSString stringWithFormat:@"select count(*) from debt where debtor = %@", self.debtorID];
+    NSString *a = [db getStr:query];
+    return [a intValue]+1;
 }
 
 - (void)configureView
@@ -65,9 +69,33 @@
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
-    UITableViewCell *cell = [[UITableViewCell alloc] init];
-    cell.textLabel.text = @"Cell";
+    UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"cell"];
+    DBmanager *db = [DBmanager getSharedInstance];
+    NSMutableArray *_debts = [db loadDebts:self.debtorID];
+    NSLog(@"debtorID %@", self.debtorID);
+    
+    if( nil == cell ) {
+        cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:@"cell"];
+    }
+    
+    if(indexPath.row < [_debts count]){
+        cell.textLabel.textColor = [UIColor blackColor];
+        cell.editingAccessoryType = UITableViewCellAccessoryNone;
+        Debtor *debtor = [Debtor alloc];
+        debtor = [_debts objectAtIndex:indexPath.row];
+        cell.textLabel.text = debtor.name;
+        [cell setSelectionStyle:UITableViewCellSelectionStyleNone];
+    }
+    
     return cell;
 }
-							
+
+- (id)initWithID:(NSString *)debtorid {
+    if ( (self = [super init]) ) {
+        self.debtorID = debtorid;
+        NSLog(@"initWithID %@", self.debtorID);
+    }
+    return self;
+}
+
 @end

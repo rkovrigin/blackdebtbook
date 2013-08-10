@@ -115,35 +115,18 @@
     }
 }
 
-/*
-// Override to support rearranging the table view.
-- (void)tableView:(UITableView *)tableView moveRowAtIndexPath:(NSIndexPath *)fromIndexPath toIndexPath:(NSIndexPath *)toIndexPath
-{
-}
-*/
-
-/*
-// Override to support conditional rearranging of the table view.
-- (BOOL)tableView:(UITableView *)tableView canMoveRowAtIndexPath:(NSIndexPath *)indexPath
-{
-    // Return NO if you do not want the item to be re-orderable.
-    return YES;
-}
-*/
-
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
     if (!self.detailViewController) {
         self.detailViewController = [[DetailViewController alloc] initWithNibName:@"DetailViewController" bundle:nil];
     }
+    DBmanager *db = [DBmanager getSharedInstance];
+    NSMutableArray *_deblors = [db loadDebtors];
+    
     AppDelegate *delegate = (AppDelegate*) [[UIApplication sharedApplication] delegate];
-    DetailViewController *detail = [[DetailViewController alloc] init];
-    
+    Debtor *_d = _deblors[indexPath.row];
+    DetailViewController *detail = [[DetailViewController alloc] initWithID:_d.id];    
     [delegate.navigationController pushViewController:detail animated:YES];
-    
-//    NSDate *object = _objects[indexPath.row];
-//    self.detailViewController.debtsTable = object;
-//    [self.navigationController pushViewController:self.detailViewController animated:YES];
 }
 
 @end
