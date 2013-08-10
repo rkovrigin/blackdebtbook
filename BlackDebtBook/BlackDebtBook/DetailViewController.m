@@ -87,6 +87,19 @@
         [cell setSelectionStyle:UITableViewCellSelectionStyleNone];
     }
     
+    if (indexPath.row == [_debts count]){
+        cell.textLabel.textAlignment = NSTextAlignmentCenter;
+        cell.textLabel.textColor = [UIColor blackColor];
+        cell.editingAccessoryType = UITableViewCellAccessoryNone;
+        if(indexPath.row != 0){
+        NSString *sum = [db getStr:[NSString stringWithFormat:@"select sum(amount) from debt where debtor = %@", self.debtorID]];
+            cell.textLabel.text = [NSString stringWithFormat:@"Sum is %@", sum];
+        }else{
+            cell.textLabel.text = @"Empty";
+        }
+        [cell setSelectionStyle:UITableViewCellSelectionStyleNone];            
+    }
+    
     return cell;
 }
 
@@ -95,6 +108,10 @@
         self.debtorID = debtorid;
         NSLog(@"initWithID %@", self.debtorID);
     }
+    DBmanager *db = [DBmanager getSharedInstance];
+    NSLog(@"debtorID= %@", self.debtorID);
+    NSString *debtorName = [db getStr: [NSString stringWithFormat:@"select name from debtor where regno = %@", self.debtorID]];
+    self.title = debtorName;
     return self;
 }
 
