@@ -10,7 +10,9 @@
 
 @class DetailViewController;
 
-@interface MasterViewController : UITableViewController<UITableViewDataSource, UITableViewDelegate>
+@interface MasterViewController : UITableViewController<UITableViewDataSource, UITableViewDelegate>{
+    IBOutlet UITableViewCell *debtorName;
+}
 
 @property (strong, nonatomic) DetailViewController *detailViewController;
 

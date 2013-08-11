@@ -48,12 +48,14 @@
 
 - (void)insertNewObject:(id)sender
 {
-    NSDateFormatter *df = [[NSDateFormatter alloc] init];
-    [df setDateFormat:@"yyyy-MM-dd-hh:mm"];
-    DBmanager *db = [DBmanager getSharedInstance];
-    [db saveData:[df stringFromDate:[NSDate date]]];
+    if(!self.editing){
+        NSDateFormatter *df = [[NSDateFormatter alloc] init];
+        [df setDateFormat:@"yyyy-MM-dd-hh:mm"];
+        DBmanager *db = [DBmanager getSharedInstance];
+        [db saveData:[df stringFromDate:[NSDate date]]];
 
-    [self.tableView reloadData];
+        [self.tableView reloadData];
+    }
 }
 
 #pragma mark - Table View
@@ -75,6 +77,10 @@
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
 {
     static NSString *CellIdentifier = @"Cell";
+    NSMutableArray *_debtors;
+    DBmanager *_db = [DBmanager getSharedInstance];
+    _debtors = [_db loadDebtors];
+    Debtor *debtor = [Debtor alloc];
     
     UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:CellIdentifier];
     if (cell == nil) {
@@ -82,17 +88,17 @@
         cell.accessoryType = UITableViewCellAccessoryDisclosureIndicator;
     }
     
-    NSMutableArray *_debtors;
-    DBmanager *_db = [DBmanager getSharedInstance];
-    _debtors = [_db loadDebtors];
-    Debtor *debtor = [Debtor alloc];
-    
     if(indexPath.row < [_debtors count]){
-        cell.textLabel.textColor = [UIColor blackColor];
-        cell.editingAccessoryType = UITableViewCellAccessoryNone;
-        debtor = [_debtors objectAtIndex:indexPath.row];
-        cell.textLabel.text = debtor.name;
-        [cell setSelectionStyle:UITableViewCellSelectionStyleNone];
+        if (self.editing){
+            NSLog(@"Editing");
+        }else{
+            NSLog(@"NOT Editing");
+            cell.textLabel.textColor = [UIColor blackColor];
+            cell.editingAccessoryType = UITableViewCellAccessoryNone;
+            debtor = [_debtors objectAtIndex:indexPath.row];
+            cell.textLabel.text = debtor.name;
+            [cell setSelectionStyle:UITableViewCellSelectionStyleNone];
+        }
     }
 
 //    NSDate *object = _objects[indexPath.row];
@@ -112,6 +118,7 @@
     NSMutableArray *_debtors;
     Debtor *debtor = [Debtor alloc];
     _debtors = [db loadDebtors];
+
     if (editingStyle == UITableViewCellEditingStyleDelete) {
 //        [_objects removeObjectAtIndex:indexPath.row];
 //        [tableView deleteRowsAtIndexPaths:@[indexPath] withRowAnimation:UITableViewRowAnimationFade];
@@ -120,6 +127,7 @@
         [self.tableView reloadData];
     } else if (editingStyle == UITableViewCellEditingStyleInsert) {
         // Create a new instance of the appropriate class, insert it into the array, and add a new row to the table view.
+        [self.tableView insertSections:[NSIndexSet indexSetWithIndex:1] withRowAnimation:UITableViewRowAnimationBottom];
     }
 }
 
@@ -130,11 +138,12 @@
     }
     DBmanager *db = [DBmanager getSharedInstance];
     NSMutableArray *_deblors = [db loadDebtors];
-    
     AppDelegate *delegate = (AppDelegate*) [[UIApplication sharedApplication] delegate];
+    
     Debtor *_d = _deblors[indexPath.row];
-    DetailViewController *detail = [[DetailViewController alloc] initWithID:_d.id];    
+    DetailViewController *detail = [[DetailViewController alloc] initWithID:_d.id];
     [delegate.navigationController pushViewController:detail animated:YES];
+    
 }
 
 @end

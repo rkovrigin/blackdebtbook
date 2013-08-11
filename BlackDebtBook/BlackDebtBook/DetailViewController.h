@@ -12,6 +12,7 @@
 @property NSString *debtorID;
 //@property (strong, nonatomic) id detailItem;
 @property (weak, nonatomic) IBOutlet UITableView *debtsTable;
+@property (weak, nonatomic) IBOutlet UIToolbar *bottomToolbar;
 
 //@property (weak, nonatomic) IBOutlet UILabel *detailDescriptionLabel;
 - (id)initWithID:(NSString *)debtorID;

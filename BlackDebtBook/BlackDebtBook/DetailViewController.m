@@ -14,7 +14,7 @@
 @end
 
 @implementation DetailViewController
-
+@synthesize bottomToolbar;
 #pragma mark - Managing the detail item
 
 - (void)setDetailItem:(id)newDetailItem
@@ -49,7 +49,39 @@
 {
     [super viewDidLoad];
 	// Do any additional setup after loading the view, typically from a nib.
+    self.navigationItem.rightBarButtonItem = self.editButtonItem;    
+    UIBarButtonItem *edit = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemEdit target:self action:@selector(editButtonItem:)];
+    self.navigationItem.rightBarButtonItem = edit;
+        
+    UIBarButtonItem *addBottomButton = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemAdd target:self action:@selector(addDebt:)];
+    UIBarButtonItem *fixed = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemFixedSpace target:nil action:nil];
+    [fixed setWidth:135.0f];
+    NSArray *buttons = [NSArray arrayWithObjects: fixed, addBottomButton, nil];
+    [bottomToolbar setItems: buttons];
+    
     [self configureView];
+}
+
+- (void)addDebt:(id)sender
+{
+    UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"title" message:@"message" delegate:nil cancelButtonTitle:nil otherButtonTitles:@"ok", nil];
+//    alert.alertViewStyle = UIKeyboardAppearanceAlert;
+    
+    [alert show];
+}
+
+- (void)editButtonItem:(id)sender
+{
+    NSLog(@"add");
+}
+
+- (void)insertNewObject:(id)sender
+{
+    if(!self.editing){
+        DBmanager *db = [DBmanager getSharedInstance];
+        [db Exec:[NSString stringWithFormat:@"insert into debt (amount, debtor) values(178, %@)", self.debtorID]];
+        [self.debtsTable reloadData];
+    }
 }
 
 - (void)didReceiveMemoryWarning
@@ -84,6 +116,7 @@
         Debtor *debtor = [Debtor alloc];
         debtor = [_debts objectAtIndex:indexPath.row];
         cell.textLabel.text = debtor.name;
+        cell.textLabel.textAlignment = NSTextAlignmentLeft;
         [cell setSelectionStyle:UITableViewCellSelectionStyleNone];
     }
     
