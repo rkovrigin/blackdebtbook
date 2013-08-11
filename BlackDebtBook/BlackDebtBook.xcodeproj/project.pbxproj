@@ -23,7 +23,6 @@
 		D3D6F1DA17A84E58007C046E /* DBmanager.m in Sources */ = {isa = PBXBuildFile; fileRef = D3D6F1D917A84E58007C046E /* DBmanager.m */; };
 		D3D6F1DC17A84F05007C046E /* libsqlite3.0.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = D3D6F1DB17A84F05007C046E /* libsqlite3.0.dylib */; };
 		D3D6F1DF17AD3D74007C046E /* Debtor.m in Sources */ = {isa = PBXBuildFile; fileRef = D3D6F1DE17AD3D74007C046E /* Debtor.m */; };
-		D3D6F1E117B7A786007C046E /* plusminus.png in Resources */ = {isa = PBXBuildFile; fileRef = D3D6F1E017B7A786007C046E /* plusminus.png */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -51,7 +50,6 @@
 		D3D6F1DB17A84F05007C046E /* libsqlite3.0.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libsqlite3.0.dylib; path = usr/lib/libsqlite3.0.dylib; sourceTree = SDKROOT; };
 		D3D6F1DD17AD3D74007C046E /* Debtor.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Debtor.h; sourceTree = "<group>"; };
 		D3D6F1DE17AD3D74007C046E /* Debtor.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Debtor.m; sourceTree = "<group>"; };
-		D3D6F1E017B7A786007C046E /* plusminus.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = plusminus.png; path = ../../../../../Downloads/plusminus.png; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -116,7 +114,6 @@
 		D37CDF2B16CBE4D200B0890F /* Supporting Files */ = {
 			isa = PBXGroup;
 			children = (
-				D3D6F1E017B7A786007C046E /* plusminus.png */,
 				D37CDF2C16CBE4D200B0890F /* BlackDebtBook-Info.plist */,
 				D37CDF2D16CBE4D200B0890F /* InfoPlist.strings */,
 				D37CDF3016CBE4D200B0890F /* main.m */,
@@ -189,7 +186,6 @@
 				D37CDF3B16CBE4D200B0890F /* Default-568h@2x.png in Resources */,
 				D37CDF4416CBE4D200B0890F /* MasterViewController.xib in Resources */,
 				D37CDF4716CBE4D200B0890F /* DetailViewController.xib in Resources */,
-				D3D6F1E117B7A786007C046E /* plusminus.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
