@@ -33,11 +33,16 @@
     [super viewDidLoad];
 	// Do any additional setup after loading the view, typically from a nib.
     self.navigationItem.leftBarButtonItem = self.editButtonItem;
-    self.navigationItem.rightBarButtonItem = self.editButtonItem;
+    //self.navigationItem.rightBarButtonItem = self.editButtonItem;
 
     UIBarButtonItem *addButton = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemAdd target:self action:@selector(insertNewObject:)];
-    self.navigationItem.rightBarButtonItem = addButton;
+    //self.navigationItem.rightBarButtonItem = addButton;
     self.navigationController.navigationBar.tintColor = [UIColor blackColor];
+    
+    NSMutableArray * arr = [NSMutableArray arrayWithObjects:addButton, nil];
+    self.navigationController.toolbar.tintColor = [UIColor blackColor];
+    [[self navigationController] setToolbarHidden: NO animated:NO];
+    [self setToolbarItems:arr animated:YES];
 }
 
 - (void)didReceiveMemoryWarning

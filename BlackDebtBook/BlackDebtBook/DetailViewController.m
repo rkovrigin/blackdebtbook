@@ -58,6 +58,14 @@
     [fixed setWidth:135.0f];
     NSArray *buttons = [NSArray arrayWithObjects: fixed, addBottomButton, nil];
     [bottomToolbar setItems: buttons];
+    [self setToolbarItems:buttons];
+    
+    DBmanager *db = [DBmanager getSharedInstance];
+    NSMutableArray *_debterCount = [db loadDebts:self.debtorID];
+    
+    NSIndexPath* ipath = [NSIndexPath indexPathForRow: [_debterCount count] inSection: 0];
+    
+    [self.debtsTable scrollToRowAtIndexPath: ipath atScrollPosition: UITableViewScrollPositionBottom animated: YES];
     
     [self configureView];
 }
@@ -116,7 +124,15 @@
         Debtor *debtor = [Debtor alloc];
         debtor = [_debts objectAtIndex:indexPath.row];
         cell.textLabel.text = debtor.name;
-        cell.textLabel.textAlignment = NSTextAlignmentLeft;
+        
+        int money = [debtor.name integerValue];
+        NSLog(@"money %i", money);
+        if (money < 0){
+            cell.textLabel.textAlignment = NSTextAlignmentLeft;
+        }else{
+            cell.textLabel.textAlignment = NSTextAlignmentRight;
+        }
+        
         [cell setSelectionStyle:UITableViewCellSelectionStyleNone];
     }
     
@@ -134,6 +150,10 @@
     }
     
     return cell;
+}
+
+- (void)tableView:(UITableView *)tableView willDisplayCell:(UITableViewCell *)cell forRowAtIndexPath:(NSIndexPath *)indexPath {
+//    cell.backgroundColor = [UIColor redColor];
 }
 
 - (id)initWithID:(NSString *)debtorid {
