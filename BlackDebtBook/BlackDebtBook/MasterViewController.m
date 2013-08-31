@@ -10,6 +10,7 @@
 #import "DetailViewController.h"
 #import "AppDelegate.h"
 #import "DBmanager.h"
+#import "DebtorDetail.h"
 
 @interface MasterViewController () {
     NSMutableArray *_objects;
@@ -31,17 +32,26 @@
 - (void)viewDidLoad
 {
     [super viewDidLoad];
-	// Do any additional setup after loading the view, typically from a nib.
-    self.navigationItem.leftBarButtonItem = self.editButtonItem;
-    //self.navigationItem.rightBarButtonItem = self.editButtonItem;
-
-    UIBarButtonItem *addButton = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemAdd target:self action:@selector(insertNewObject:)];
-    //self.navigationItem.rightBarButtonItem = addButton;
     self.navigationController.navigationBar.tintColor = [UIColor blackColor];
-    
-    NSMutableArray * arr = [NSMutableArray arrayWithObjects:addButton, nil];
     self.navigationController.toolbar.tintColor = [UIColor blackColor];
+	// Do any additional setup after loading the view, typically from a nib.
+    self.navigationItem.rightBarButtonItem = self.editButtonItem;
     [[self navigationController] setToolbarHidden: NO animated:NO];
+    
+//    UIBarButtonItem *edit = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemEdit target:self action:@selector(editButtonItem:)];
+    
+    UIBarButtonItem *addButton = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemAdd target:self action:@selector(insertNewObject:)];
+    
+    UIBarButtonItem *fixedSpace = [[UIBarButtonItem alloc]
+                                   initWithBarButtonSystemItem:UIBarButtonSystemItemFlexibleSpace
+                                   target:nil
+                                   action:nil];
+//    [fixedSpace setWidth:220.0f];
+    
+    //self.navigationItem.rightBarButtonItem = self.editButtonItem;
+    //self.navigationItem.rightBarButtonItem = addButton;
+    
+    NSMutableArray * arr = [NSMutableArray arrayWithObjects: fixedSpace, addButton, fixedSpace, nil];
     [self setToolbarItems:arr animated:YES];
 }
 
@@ -53,14 +63,24 @@
 
 - (void)insertNewObject:(id)sender
 {
-    if(!self.editing){
-        NSDateFormatter *df = [[NSDateFormatter alloc] init];
-        [df setDateFormat:@"yyyy-MM-dd-hh:mm"];
-        DBmanager *db = [DBmanager getSharedInstance];
-        [db saveData:[df stringFromDate:[NSDate date]]];
+    AppDelegate *delegate = (AppDelegate*) [[UIApplication sharedApplication] delegate];
+    DebtorDetail *debtordetail = [[DebtorDetail alloc] init];
+    
+    [delegate.navigationController pushViewController:debtordetail animated:YES];
+    
+//    if(!self.editing){
+//        NSDateFormatter *df = [[NSDateFormatter alloc] init];
+//        [df setDateFormat:@"yyyy-MM-dd-hh:mm"];
+//        DBmanager *db = [DBmanager getSharedInstance];
+//        [db saveData:[df stringFromDate:[NSDate date]]];
+//
+//        [self.tableView reloadData];
+//    }
+}
 
-        [self.tableView reloadData];
-    }
+-(void)editButtonItem:(id)sender
+{
+    
 }
 
 #pragma mark - Table View

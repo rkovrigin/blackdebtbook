@@ -23,6 +23,10 @@
 		D3D6F1DA17A84E58007C046E /* DBmanager.m in Sources */ = {isa = PBXBuildFile; fileRef = D3D6F1D917A84E58007C046E /* DBmanager.m */; };
 		D3D6F1DC17A84F05007C046E /* libsqlite3.0.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = D3D6F1DB17A84F05007C046E /* libsqlite3.0.dylib */; };
 		D3D6F1DF17AD3D74007C046E /* Debtor.m in Sources */ = {isa = PBXBuildFile; fileRef = D3D6F1DE17AD3D74007C046E /* Debtor.m */; };
+		D3D6F1E817C0C867007C046E /* DebtDetail.m in Sources */ = {isa = PBXBuildFile; fileRef = D3D6F1E617C0C867007C046E /* DebtDetail.m */; };
+		D3D6F1E917C0C867007C046E /* DebtDetail.xib in Resources */ = {isa = PBXBuildFile; fileRef = D3D6F1E717C0C867007C046E /* DebtDetail.xib */; };
+		D3D6F1ED17C53FA3007C046E /* DebtorDetail.m in Sources */ = {isa = PBXBuildFile; fileRef = D3D6F1EB17C53FA3007C046E /* DebtorDetail.m */; };
+		D3D6F1EE17C53FA3007C046E /* DebtorDetail.xib in Resources */ = {isa = PBXBuildFile; fileRef = D3D6F1EC17C53FA3007C046E /* DebtorDetail.xib */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -50,6 +54,12 @@
 		D3D6F1DB17A84F05007C046E /* libsqlite3.0.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libsqlite3.0.dylib; path = usr/lib/libsqlite3.0.dylib; sourceTree = SDKROOT; };
 		D3D6F1DD17AD3D74007C046E /* Debtor.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Debtor.h; sourceTree = "<group>"; };
 		D3D6F1DE17AD3D74007C046E /* Debtor.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Debtor.m; sourceTree = "<group>"; };
+		D3D6F1E517C0C867007C046E /* DebtDetail.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DebtDetail.h; sourceTree = "<group>"; };
+		D3D6F1E617C0C867007C046E /* DebtDetail.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DebtDetail.m; sourceTree = "<group>"; };
+		D3D6F1E717C0C867007C046E /* DebtDetail.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = DebtDetail.xib; sourceTree = "<group>"; };
+		D3D6F1EA17C53FA3007C046E /* DebtorDetail.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DebtorDetail.h; sourceTree = "<group>"; };
+		D3D6F1EB17C53FA3007C046E /* DebtorDetail.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DebtorDetail.m; sourceTree = "<group>"; };
+		D3D6F1EC17C53FA3007C046E /* DebtorDetail.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = DebtorDetail.xib; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -107,6 +117,12 @@
 				D37CDF4016CBE4D200B0890F /* DetailViewController.m */,
 				D37CDF4516CBE4D200B0890F /* DetailViewController.xib */,
 				D37CDF2B16CBE4D200B0890F /* Supporting Files */,
+				D3D6F1E517C0C867007C046E /* DebtDetail.h */,
+				D3D6F1E617C0C867007C046E /* DebtDetail.m */,
+				D3D6F1E717C0C867007C046E /* DebtDetail.xib */,
+				D3D6F1EA17C53FA3007C046E /* DebtorDetail.h */,
+				D3D6F1EB17C53FA3007C046E /* DebtorDetail.m */,
+				D3D6F1EC17C53FA3007C046E /* DebtorDetail.xib */,
 			);
 			path = BlackDebtBook;
 			sourceTree = "<group>";
@@ -186,6 +202,8 @@
 				D37CDF3B16CBE4D200B0890F /* Default-568h@2x.png in Resources */,
 				D37CDF4416CBE4D200B0890F /* MasterViewController.xib in Resources */,
 				D37CDF4716CBE4D200B0890F /* DetailViewController.xib in Resources */,
+				D3D6F1E917C0C867007C046E /* DebtDetail.xib in Resources */,
+				D3D6F1EE17C53FA3007C046E /* DebtorDetail.xib in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -202,6 +220,8 @@
 				D37CDF4116CBE4D200B0890F /* DetailViewController.m in Sources */,
 				D3D6F1DA17A84E58007C046E /* DBmanager.m in Sources */,
 				D3D6F1DF17AD3D74007C046E /* Debtor.m in Sources */,
+				D3D6F1E817C0C867007C046E /* DebtDetail.m in Sources */,
+				D3D6F1ED17C53FA3007C046E /* DebtorDetail.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

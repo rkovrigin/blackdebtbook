@@ -8,6 +8,9 @@
 
 #import "DetailViewController.h"
 #import "DBmanager.h"
+#import "AppDelegate.h"
+#import "DebtDetail.h"
+
 
 @interface DetailViewController ()
 - (void)configureView;
@@ -49,14 +52,24 @@
 {
     [super viewDidLoad];
 	// Do any additional setup after loading the view, typically from a nib.
-    self.navigationItem.rightBarButtonItem = self.editButtonItem;    
-    UIBarButtonItem *edit = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemEdit target:self action:@selector(editButtonItem:)];
-    self.navigationItem.rightBarButtonItem = edit;
-        
+//    self.navigationItem.rightBarButtonItem = self.editButtonItem;
+    
+//    UIBarButtonItem *edit = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemEdit target:self action:@selector(editButtonItem:)];
+//    self.navigationItem.rightBarButtonItem = edit;
+    
     UIBarButtonItem *addBottomButton = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemAdd target:self action:@selector(addDebt:)];
-    UIBarButtonItem *fixed = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemFixedSpace target:nil action:nil];
-    [fixed setWidth:135.0f];
-    NSArray *buttons = [NSArray arrayWithObjects: fixed, addBottomButton, nil];
+    UIBarButtonItem *minusBottomButton = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemAdd target:self action:@selector(addDebt:)];
+//    UIBarButtonItem *fixed = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemFixedSpace target:nil action:nil];
+//    [fixed setWidth:135.0f];
+    
+    self.navigationController.toolbar.tintColor = [UIColor blackColor];
+    self.navigationItem.rightBarButtonItem = self.editButtonItem;
+    
+    UIBarButtonItem *fixedSpace = [[UIBarButtonItem alloc]
+                                   initWithBarButtonSystemItem:UIBarButtonSystemItemFlexibleSpace
+                                   target:nil
+                                   action:nil];
+    NSArray *buttons = [NSArray arrayWithObjects: fixedSpace, addBottomButton, fixedSpace, nil];
     [bottomToolbar setItems: buttons];
     [self setToolbarItems:buttons];
     
@@ -72,10 +85,13 @@
 
 - (void)addDebt:(id)sender
 {
-    UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"title" message:@"message" delegate:nil cancelButtonTitle:nil otherButtonTitles:@"ok", nil];
+//    UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"title" message:@"message" delegate:nil cancelButtonTitle:nil otherButtonTitles:@"ok", nil];
 //    alert.alertViewStyle = UIKeyboardAppearanceAlert;
     
-    [alert show];
+//    [alert show];
+    AppDelegate *delegate = (AppDelegate*) [[UIApplication sharedApplication] delegate];
+    DebtDetail *debtdetail = [[DebtDetail alloc] init];
+    [delegate.navigationController pushViewController:debtdetail animated:YES];
 }
 
 - (void)editButtonItem:(id)sender
